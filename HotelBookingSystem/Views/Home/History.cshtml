@@ -1,0 +1,27 @@
+﻿@model List<HotelBookingSystem.Models.UserBookedRoomViewModel>
+@{
+     
+}
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Room NO</th>
+                <th scope="col">Check-In Date</th>
+                <th scope="col">Check-Out Date</th>
+                <th scope="col">RoomType</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.RoomNo</td>
+                    <td>@item.FromDate.Date</td>
+                    <td>@item.ToDate.Date</td>
+                    <td>@item.RoomType</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

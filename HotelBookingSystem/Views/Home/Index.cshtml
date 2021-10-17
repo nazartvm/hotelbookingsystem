@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .dateselector-container {
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+    .maincontainer{
+        margin-top:4%;
+    }
+    .submitdiv{
+        margin-top:2%;
+    }
+</style>
+<div class="maincontainer">
+    <form asp-controller="home" asp-action="submitdate" method="post"> 
+        <h1 class="text-center showroommsg" style="display:none">@ViewBag.RoomBookingMessage</h1>
+        <div class="text-center dateselector-container form-row">
+            <div class="col-4">
+                <p>Select Check-In Date</p>
+            </div>
+            <div class="col-4">
+                <p>Select Check-Out Date</p>
+            </div>
+            <div class="col-4">
+                <p>Select Room Type</p>
+            </div>
+        </div>
+        <div class="text-center dateselector-container form-row">
+            <div class="col-4">
+                <input type="date" class="form-control" id="fromdate" name="FromDate">
+            </div>
+            <div class="col-4">
+                <input type="date" class="form-control" id="todate" name="ToDate">
+            </div>
+            <div class="col-4">
+                <select class="custom-select" name="RoomType">
+                    <option value="0">Single</option>
+                    <option value="1">Double</option>
+                </select>
+            </div>
+        </div>
+        <div class="text-center submitdiv">
+            <button type="submit" style="background-color:black" class="btn btn-primary">Submit</button>
+
+        </div>
+    </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var message = '@ViewBag.RoomBookingMessage';
+        if (message == "") {
+            $('.showroommsg').hide();
+        }
+        else {
+            $('.showroommsg').show();
+        }
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("FromDate")[0].setAttribute('min', today);
+        $("#fromdate").change(function () {
+            $('.showroommsg').hide();
+            var fromDate = new Date($('#fromdate').val());
+            var datestring = fromDate.getFullYear() + '-' + (fromDate.getMonth()+1) + '-' + (fromDate.getDate() + 1);
+            console.log(datestring);
+            document.getElementsByName("ToDate")[0].setAttribute('min', datestring);
+            console.log($('#fromdate').val());
+        });
+    </script>
